@@ -32,7 +32,6 @@ body {
 #keys {
     width: 440px;
     height: 500px;
-    border: 1px solid black;
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -55,6 +54,7 @@ button {
     min-height: 100px;
     font-size: 30px;
     border: 2px solid black;
+    border-radius: 5px;
 }
 
 button#equal {
