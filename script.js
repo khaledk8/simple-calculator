@@ -4,10 +4,11 @@ let arrayStorage = []
 let calculationResult
 
 const elementArray = document.querySelectorAll(".digit")
-const operatorArray = document.querySelectorAll(".operator")
+const operatorArray = document.querySelectorAll(".operator.last")
 const negativePositive = document.querySelector(".neg-pos")
 const result = document.getElementById("equal")
 const operations = document.getElementById("operations")
+const backSpace= document.getElementById("delete")
 
 
 
