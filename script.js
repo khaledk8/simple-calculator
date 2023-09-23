@@ -17,13 +17,13 @@ elementArray.forEach(elem => {
     elem.addEventListener('click', () => {
         smallVar = elem.textContent
         bigVar += smallVar
-        if (addToStack()) arrayStorage.push(bigVar)
+        if (checker()) arrayStorage.push(bigVar)
         arrayStorage[arrayStorage.length - 1] = bigVar
         operations.textContent += elem.textContent
     })
 })
 
-function addToStack () {
+function checker () {
     if (arrayStorage[arrayStorage.length-1] == '' || arrayStorage[arrayStorage.length-1] == 'x' || arrayStorage[arrayStorage.length-1] == '+' || arrayStorage[arrayStorage.length-1] == '/' || arrayStorage[arrayStorage.length-1] == '−' || arrayStorage[arrayStorage.length-1] == undefined || arrayStorage[arrayStorage.length-1] == null) {
         return true
     }
@@ -63,9 +63,15 @@ result.addEventListener('click', () => {
 })
 
 backSpace.addEventListener('click', () => {
+    if (checker()) {
+        arrayStorage.pop()
+        operations.textContent = operations.textContent.slice(0,-1)
+        return
+    }
     operations.textContent = operations.textContent.slice(0,-1)
     arrayStorage[arrayStorage.length - 1] = arrayStorage[arrayStorage.length - 1].slice(0,-1)
-    if (bigVar == "" && smallVar == "") {
+    bigVar = bigVar.slice(0,-1)
+    if (arrayStorage[arrayStorage.length - 1] == "") {
         arrayStorage.pop()
         return
     }
