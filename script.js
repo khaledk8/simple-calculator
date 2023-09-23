@@ -17,19 +17,29 @@ elementArray.forEach(elem => {
     elem.addEventListener('click', () => {
         smallVar = elem.textContent
         bigVar += smallVar
+        if (addToStack()) arrayStorage.push(bigVar)
+        arrayStorage[arrayStorage.length - 1] = bigVar
         operations.textContent += elem.textContent
     })
 })
 
+function addToStack () {
+    if (arrayStorage[arrayStorage.length-1] == '' || arrayStorage[arrayStorage.length-1] == 'x' || arrayStorage[arrayStorage.length-1] == '+' || arrayStorage[arrayStorage.length-1] == '/' || arrayStorage[arrayStorage.length-1] == '−' || arrayStorage[arrayStorage.length-1] == undefined || arrayStorage[arrayStorage.length-1] == null) {
+        return true
+    }
+    return false
+}
+
 operatorArray.forEach(elem => {
     elem.addEventListener('click', () => {
-        arrayStorage.push(bigVar)
         bigVar = ""
         smallVar = ""
         arrayStorage.push(elem.textContent)
         operations.textContent += elem.textContent
     })
 } )
+
+
 
 
 
@@ -47,30 +57,21 @@ result.addEventListener('click', () => {
         resultDiv.textContent = "Error"
         return
     }
-    arrayStorage.push(bigVar)
     bigVar = ''
     calculate()
 
 })
 
 backSpace.addEventListener('click', () => {
-    if (arrayStorage[arrayStorage.length - 1] == "") arrayStorage.pop()
     operations.textContent = operations.textContent.slice(0,-1)
+    arrayStorage[arrayStorage.length - 1] = arrayStorage[arrayStorage.length - 1].slice(0,-1)
     if (bigVar == "" && smallVar == "") {
         arrayStorage.pop()
         return
     }
-    arrayStorage[arrayStorage.length - 1] = arrayStorage[arrayStorage.length - 1].slice(0,-1)
-
+    console.log(arrayStorage)
 })
 
-/* function checkOperations () {
-    if (arrayStorage[arrayStorage.length - 1] == '+') return true;
-    if (arrayStorage[arrayStorage.length - 1] == 'x') return true;
-    if (arrayStorage[arrayStorage.length - 1] == '-') return true;
-    if (arrayStorage[arrayStorage.length - 1] == '/') return true;
-    return false;
-} */
 
 function add (a,b) {
     return a+b
@@ -101,7 +102,6 @@ function calculate () {
         resultDiv.textContent =  Math.round(parseFloat(arrayStorage[0]) * 100) / 100
         return
     }    
-    console.log(arrayStorage.length)
     secondOrderCalculate()
     if (arrayStorage.length > 1) calculate()
     resultDiv.textContent = Math.round(parseFloat(arrayStorage[0]) * 100) / 100
@@ -127,11 +127,11 @@ function firstOrderCalculate () {
 }
 
 function secondOrderCalculate () {
-    if (arrayStorage.includes('+') && arrayStorage.includes('-')) {
-        if (arrayStorage.indexOf('+') < arrayStorage.indexOf('-')) {
+    if (arrayStorage.includes('+') && arrayStorage.includes('−')) {
+        if (arrayStorage.indexOf('+') < arrayStorage.indexOf('−')) {
             arrayStorage.splice(arrayStorage.indexOf('+')-1,3,add(parseFloat(arrayStorage[arrayStorage.indexOf('+')-1]),parseFloat(arrayStorage[arrayStorage.indexOf('+')+1])))
         } else {
-            arrayStorage.splice(arrayStorage.indexOf('-')-1,3,subtract(parseFloat(arrayStorage[arrayStorage.indexOf('-')-1]),parseFloat(arrayStorage[arrayStorage.indexOf('-')+1])))
+            arrayStorage.splice(arrayStorage.indexOf('−')-1,3,subtract(parseFloat(arrayStorage[arrayStorage.indexOf('−')-1]),parseFloat(arrayStorage[arrayStorage.indexOf('−')+1])))
         }
         return
     }
@@ -139,5 +139,7 @@ function secondOrderCalculate () {
         arrayStorage.splice(arrayStorage.indexOf('+')-1,3,add(parseFloat(arrayStorage[arrayStorage.indexOf('+')-1]),parseFloat(arrayStorage[arrayStorage.indexOf('+')+1])))
         return
     }
-    arrayStorage.splice(arrayStorage.indexOf('-')-1,3,subtract(parseFloat(arrayStorage[arrayStorage.indexOf('-')-1]),parseFloat(arrayStorage[arrayStorage.indexOf('-')+1])))
+    console.log(arrayStorage)
+    arrayStorage.splice(arrayStorage.indexOf('−')-1,3,subtract(parseFloat(arrayStorage[arrayStorage.indexOf('−')-1]),parseFloat(arrayStorage[arrayStorage.indexOf('−')+1])))
+    console.log(arrayStorage)
 }
