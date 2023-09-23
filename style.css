@@ -35,6 +35,11 @@ body {
     font-size: 40px;
 }
 
+#result {
+    font-size: 60px;
+}
+
+
 #keys {
     width: 440px;
     height: 500px;

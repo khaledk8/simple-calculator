@@ -10,11 +10,22 @@ const result = document.getElementById("equal")
 const operations = document.getElementById("operations")
 const backSpace= document.getElementById("delete")
 const resultDiv = document.getElementById("result")
+const clearButton = document.querySelector(".clear")
 
-
+clearButton.addEventListener('click', () => {
+    bigVar = ''
+    smallVar = ''
+    operations.textContent = ''
+    resultDiv.textContent = ''
+    let j = arrayStorage.length
+    for (let i = 0; i < j; i++) {
+        arrayStorage.pop()
+    }
+})
 
 elementArray.forEach(elem => {
     elem.addEventListener('click', () => {
+        checkResultDiv()
         smallVar = elem.textContent
         bigVar += smallVar
         if (checker()) arrayStorage.push(bigVar)
@@ -22,6 +33,13 @@ elementArray.forEach(elem => {
         operations.textContent += elem.textContent
     })
 })
+
+function checkResultDiv() {
+    if (resultDiv.textContent !== '') {
+        operations.textContent = resultDiv.textContent.toString()
+        console.log("true")
+    }
+}
 
 function checker () {
     if (arrayStorage[arrayStorage.length-1] == '' || arrayStorage[arrayStorage.length-1] == 'x' || arrayStorage[arrayStorage.length-1] == '+' || arrayStorage[arrayStorage.length-1] == '/' || arrayStorage[arrayStorage.length-1] == '−' || arrayStorage[arrayStorage.length-1] == undefined || arrayStorage[arrayStorage.length-1] == null) {
@@ -32,6 +50,8 @@ function checker () {
 
 operatorArray.forEach(elem => {
     elem.addEventListener('click', () => {
+        checkResultDiv()
+        resultDiv.textContent = ''
         bigVar = ""
         smallVar = ""
         arrayStorage.push(elem.textContent)
