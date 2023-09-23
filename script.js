@@ -25,7 +25,16 @@ clearButton.addEventListener('click', () => {
 
 elementArray.forEach(elem => {
     elem.addEventListener('click', () => {
-        checkResultDiv()
+        if (checkResultDiv()) {
+            bigVar = ''
+    smallVar = ''
+    operations.textContent = ''
+    resultDiv.textContent = ''
+    let j = arrayStorage.length
+    for (let i = 0; i < j; i++) {
+        arrayStorage.pop()
+    }
+        }
         smallVar = elem.textContent
         bigVar += smallVar
         if (checker()) arrayStorage.push(bigVar)
@@ -37,8 +46,9 @@ elementArray.forEach(elem => {
 function checkResultDiv() {
     if (resultDiv.textContent !== '') {
         operations.textContent = resultDiv.textContent.toString()
-        console.log("true")
+        return true
     }
+    return false
 }
 
 function checker () {
